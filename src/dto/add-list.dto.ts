@@ -1,3 +1,3 @@
-export class AddList {
+export class AddListDto {
     name: string
 }

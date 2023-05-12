@@ -1,8 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { Task } from 'src/interfaces/task.interface';
 
 @Injectable()
 export class TaskService {
-  getHello(): string {
-    return 'Hello World!';
+  allTasks(): Task[]{
+    return null;
   }
+
+  async add(req:AddTaskDto) {
+    return 'ok';
+  }
+
+  async del(id: string) :Promise<string>{
+    return 'ok';
+  }
+
+  async update(req:UpdateTaskDto) {
+    return 'ok';
+  }
+  
 }
