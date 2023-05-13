@@ -1,4 +1,4 @@
-import { Task } from "./task.interface";
+import { Task } from "../../tasks/interfaces/task.interface";
 
 export interface List {
     id: number;

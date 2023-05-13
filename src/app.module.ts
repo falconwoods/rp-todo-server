@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ListController } from './controller/list.controller';
-import { TaskController } from './controller/task.controller';
-import { ListService } from './service/list.service';
-import { TaskService } from './service/task.service';
+import { ListsController } from './models/lists/lists.controller';
+import { TasksController } from './models/tasks/tasks.controller';
+import { ListsService } from './models/lists/lists.service';
+import { TasksService } from './models/tasks/tasks.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
+import { UsersModule } from './models/users/users.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
 
@@ -28,13 +28,13 @@ import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
   ],
   controllers: [
     AppController,
-    ListController,
-    TaskController
+    ListsController,
+    TasksController
   ],
   providers: [
     AppService,
-    ListService,
-    TaskService,
+    ListsService,
+    TasksService,
     { provide: APP_GUARD, useClass: JwtAuthGuard }
   ],
 })

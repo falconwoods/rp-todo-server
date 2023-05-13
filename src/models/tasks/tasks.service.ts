@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Task } from 'src/interfaces/task.interface';
+import { Task } from 'src/models/tasks/interfaces/task.interface';
 
 @Injectable()
-export class TaskService {
+export class TasksService {
   allTasks(): Task[]{
     return null;
   }

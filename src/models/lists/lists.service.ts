@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { AddListDto } from 'src/dto/add-list.dto';
-import { UpdateListDto } from 'src/dto/update-list.dto';
-import { List } from 'src/interfaces/list.interface';
+import { AddListDto } from 'src/models/lists/dto/add-list.dto';
+import { UpdateListDto } from 'src/models/lists/dto/update-list.dto';
+import { List } from 'src/models/lists/interfaces/list.interface';
 
 @Injectable()
-export class ListService {
+export class ListsService {
   allLists(): List[] {
     return [];
   }

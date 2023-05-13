@@ -1,12 +1,12 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { AddListDto } from 'src/dto/add-list.dto';
-import { UpdateListDto } from 'src/dto/update-list.dto';
-import { List } from 'src/interfaces/list.interface';
-import { ListService } from 'src/service/list.service';
+import { AddListDto } from 'src/models/lists/dto/add-list.dto';
+import { UpdateListDto } from 'src/models/lists/dto/update-list.dto';
+import { List } from 'src/models/lists/interfaces/list.interface';
+import { ListsService } from 'src/models/lists/lists.service';
 
-@Controller('list')
-export class ListController {
-  constructor(private readonly server: ListService) {}
+@Controller('lists')
+export class ListsController {
+  constructor(private readonly server: ListsService) {}
 
   @Get()
   async all(): Promise<List[]>{
