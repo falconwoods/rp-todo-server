@@ -5,9 +5,21 @@ import { ListController } from './controller/list.controller';
 import { TaskController } from './controller/task.controller';
 import { ListService } from './service/list.service';
 import { TaskService } from './service/task.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'test',
+      entities: [],
+      synchronize: true,
+    }),
+  ],
   controllers: [AppController, ListController, TaskController],
   providers: [AppService, ListService, TaskService],
 })
