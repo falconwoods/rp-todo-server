@@ -1,4 +1,4 @@
-export class UpdateListDto {
+export class UpdateTasklistDto {
     id: number;
     name: string
 }

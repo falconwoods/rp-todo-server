@@ -1,15 +1,21 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ListsController } from './models/lists/lists.controller';
+import { ListsController } from './models/tasklists/tasklists.controller';
 import { TasksController } from './models/tasks/tasks.controller';
-import { ListsService } from './models/lists/lists.service';
+import { ListsService } from './models/tasklists/tasklists.service';
 import { TasksService } from './models/tasks/tasks.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './models/users/users.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
+import {DataSource} from 'typeorm';
+import { User } from './models/users/entities/user.entity';
+import { Tasklist } from './models/tasklists/entities/tasklist.entity';
+import { Task } from './models/tasks/entities/Task.entity';
+import { ListsModule } from './models/tasklists/tasklists.module';
+import { TasksModule } from './models/tasks/tasks.module';
 
 @Module({
   imports: [
@@ -20,11 +26,13 @@ import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
       username: 'root',
       password: 'root',
       database: 'test',
-      entities: [],
+      entities: [User, Tasklist, Task],
       synchronize: true,
     }),
     AuthModule,
     UsersModule,
+    ListsModule,
+    TasksModule
   ],
   controllers: [
     AppController,
@@ -38,4 +46,6 @@ import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
     { provide: APP_GUARD, useClass: JwtAuthGuard }
   ],
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(private db: DataSource){}
+}
