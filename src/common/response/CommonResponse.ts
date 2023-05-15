@@ -10,4 +10,11 @@ export class CommonResponse<T>{
         res.error = arg.error;
         return res;
     }
+
+    static createRaw<T>(data:T, error:string){
+        let res = new CommonResponse<T>();
+        res.data = data;
+        res.error = error;
+        return res;
+    }
 }

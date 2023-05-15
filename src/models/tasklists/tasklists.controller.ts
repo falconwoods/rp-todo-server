@@ -1,28 +1,33 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Req, Post, UseGuards } from '@nestjs/common';
 import { AddTasklistDto } from 'src/models/tasklists/dto/add-tasklist.dto';
 import { UpdateTasklistDto } from 'src/models/tasklists/dto/update-tasklist.dto';
 import { TasklistsService } from 'src/models/tasklists/tasklists.service';
+import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 
 @Controller('lists')
 export class ListsController {
   constructor(private readonly service: TasklistsService) { }
 
-  @Get()
-  async all(): Promise<any> {
-    return await this.service.all();
+  @UseGuards(JwtAuthGuard)
+  @Get('/all')
+  async all(@Req() req): Promise<any> {
+    return await this.service.all(req.user.userId);
   }
 
-  @Post()
-  async create(@Body() req: AddTasklistDto) {
-    return await this.service.create(req);
+  @UseGuards(JwtAuthGuard)
+  @Post('/create')
+  async create(@Req() req, @Body() data: AddTasklistDto) {
+    return await this.service.create(req.user.userId, data);
   }
 
-  @Get(':id')
-  async del(@Param('id') id: number) {
-    return await this.service.del(id);
+  @UseGuards(JwtAuthGuard)
+  @Post('/del')
+  async del(@Body() req: any) {
+    return await this.service.del(req.id);
   }
 
-  @Post()
+  @UseGuards(JwtAuthGuard)
+  @Post('/update')
   async update(@Body() req: UpdateTasklistDto) {
     return await this.service.update(req);
   }

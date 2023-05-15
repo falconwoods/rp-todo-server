@@ -4,6 +4,7 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { AddUser } from './dto/add-user';
 import { DBQueryResult } from 'src/common/database/db-query-result';
+import { CommonResponse } from 'src/common/response/CommonResponse';
 
 @Injectable()
 export class UsersService {
@@ -20,14 +21,14 @@ export class UsersService {
     return await this.usersRep.findOneBy({ username });
   }
 
-  async createUser(req: AddUser): Promise<DBQueryResult<User> | undefined> {
+  async createUser(req: AddUser): Promise<any> {
     let user = this.usersRep.create(req);
     try {
       let ret = await this.usersRep.insert(user);
-      return DBQueryResult.create<User>(user, null);
+      return CommonResponse.createRaw(user, null);
     }
     catch (err) {
-      return DBQueryResult.create<User>(null, err.message);
+      return CommonResponse.createRaw(null, err.message);
     }
   }
 

@@ -6,5 +6,8 @@ export class Tasklist {
     id: number;
 
     @Column()
+    userId: number;
+
+    @Column()
     name: string;
 }

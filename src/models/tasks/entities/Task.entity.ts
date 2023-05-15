@@ -9,6 +9,9 @@ export class Task {
     listId: number;
 
     @Column()
+    userId: number;
+
+    @Column()
     name: string;
 
     @Column({ nullable: true })

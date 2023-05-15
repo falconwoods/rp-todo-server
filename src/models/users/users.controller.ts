@@ -18,16 +18,15 @@ export class UsersController {
     @SkipAuth()
     @Post('/signup')
     async signup(@Body() req: AddUser) {
-        let ret = await this.usersService.createUser(req);
-        return CommonResponse.create(ret);
+        return await this.usersService.createUser(req);
     }
 
-    // @UseGuards(AuthGuard('local'))
     @UseGuards(LocalAuthGuard)
-    // @SkipAuth()
     @Post('/login')
     async login(@Body() req: AddUser) {
-        return this.authService.login(req);
+        let user = await this.usersService.findByName(req.username);
+        let token = this.authService.login(user);
+        return CommonResponse.createRaw(token, null);
     }
 
     @UseGuards(JwtAuthGuard)
