@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AddTasklistDto } from 'src/models/tasklists/dto/add-tasklist.dto';
 import { UpdateTasklistDto } from 'src/models/tasklists/dto/update-tasklist.dto';
-import { ListsService } from 'src/models/tasklists/tasklists.service';
+import { TasklistsService } from 'src/models/tasklists/tasklists.service';
 
 @Controller('lists')
 export class ListsController {
-  constructor(private readonly service: ListsService) { }
+  constructor(private readonly service: TasklistsService) { }
 
   @Get()
   async all(): Promise<any> {

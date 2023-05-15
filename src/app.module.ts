@@ -3,8 +3,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ListsController } from './models/tasklists/tasklists.controller';
 import { TasksController } from './models/tasks/tasks.controller';
-import { ListsService } from './models/tasklists/tasklists.service';
-import { TasksService } from './models/tasks/tasks.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './models/users/users.module';
@@ -16,6 +14,7 @@ import { Tasklist } from './models/tasklists/entities/tasklist.entity';
 import { Task } from './models/tasks/entities/Task.entity';
 import { ListsModule } from './models/tasklists/tasklists.module';
 import { TasksModule } from './models/tasks/tasks.module';
+import { UsersController } from './models/users/users.controller';
 
 @Module({
   imports: [
@@ -25,7 +24,7 @@ import { TasksModule } from './models/tasks/tasks.module';
       port: 3306,
       username: 'root',
       password: 'root',
-      database: 'test',
+      database: 'todo',
       entities: [User, Tasklist, Task],
       synchronize: true,
     }),
@@ -36,13 +35,12 @@ import { TasksModule } from './models/tasks/tasks.module';
   ],
   controllers: [
     AppController,
+    UsersController,
     ListsController,
     TasksController
   ],
   providers: [
     AppService,
-    ListsService,
-    TasksService,
     { provide: APP_GUARD, useClass: JwtAuthGuard }
   ],
 })

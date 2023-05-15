@@ -2,6 +2,10 @@ export class DBQueryResult<T> {
 
     private _data:T;
     private _error:string;
+
+    static create<T>(data:T, error:string){
+        return new DBQueryResult<T>(data, error);
+    }
     
     constructor(data:T, error:string){
         this._data = data;
@@ -16,7 +20,5 @@ export class DBQueryResult<T> {
         return this._error;
     }
 
-    static create<T>(data:T, error:string){
-        return new DBQueryResult<T>(data, error);
-    }
+   
 }

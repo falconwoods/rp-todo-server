@@ -7,7 +7,7 @@ import { Tasklist } from './entities/tasklist.entity';
 import { DBQueryResult } from 'src/common/database/db-query-result';
 
 @Injectable()
-export class ListsService {
+export class TasklistsService {
 
   constructor(
     @InjectRepository(Tasklist)

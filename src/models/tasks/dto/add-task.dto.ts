@@ -1,4 +1,4 @@
-class AddTaskDto{
+export class AddTaskDto{
     listId:number;
     name:string;
     note:string;
