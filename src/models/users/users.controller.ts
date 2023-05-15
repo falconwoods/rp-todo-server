@@ -6,6 +6,7 @@ import { CommonResponse } from 'src/common/response/CommonResponse';
 import { LocalAuthGuard } from 'src/auth/guard/local-auth.guard';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 export class UsersController {
@@ -21,7 +22,9 @@ export class UsersController {
         return CommonResponse.create(ret);
     }
 
+    // @UseGuards(AuthGuard('local'))
     @UseGuards(LocalAuthGuard)
+    // @SkipAuth()
     @Post('/login')
     async login(@Body() req: AddUser) {
         return this.authService.login(req);

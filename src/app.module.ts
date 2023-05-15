@@ -15,19 +15,11 @@ import { Task } from './models/tasks/entities/Task.entity';
 import { ListsModule } from './models/tasklists/tasklists.module';
 import { TasksModule } from './models/tasks/tasks.module';
 import { UsersController } from './models/users/users.controller';
+import {MySQLConfig} from './config/database';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'todo',
-      entities: [User, Tasklist, Task],
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(MySQLConfig),
     AuthModule,
     UsersModule,
     ListsModule,
@@ -41,7 +33,7 @@ import { UsersController } from './models/users/users.controller';
   ],
   providers: [
     AppService,
-    { provide: APP_GUARD, useClass: JwtAuthGuard }
+    // { provide: APP_GUARD, useClass: JwtAuthGuard }
   ],
 })
 export class AppModule { 
