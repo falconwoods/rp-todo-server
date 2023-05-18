@@ -16,6 +16,7 @@ import { ListsModule } from './models/tasklists/tasklists.module';
 import { TasksModule } from './models/tasks/tasks.module';
 import { UsersController } from './models/users/users.controller';
 import {MySQLConfig} from './config/database';
+import * as cors from 'cors';
 
 @Module({
   imports: [
