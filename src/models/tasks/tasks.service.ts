@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Task,  } from './entities/Task.entity';
+import { Task, } from './entities/Task.entity';
 import { Repository } from 'typeorm';
 import { DBQueryResult } from 'src/common/database/db-query-result';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -14,13 +14,41 @@ export class TasksService {
     private tasksRep: Repository<Task>
   ) { }
 
-  async all(userId:number): Promise<any> {
-    let tasks = await this.tasksRep.findBy({"userId": userId});
+  async all(userId: number): Promise<any> {
+    let tasks = await this.tasksRep.findBy({ "userId": userId });
     return CommonResponse.createRaw(tasks, null);
   }
 
-  async create(userId:number, req: AddTaskDto): Promise<any> {
-    let task = this.tasksRep.create({"userId":userId, ...req});
+  async findByListId(userId: number, listId: number): Promise<any> {
+    let tasks = await this.tasksRep.findBy({ "userId": userId })
+    if (listId == -1) {
+      // all
+      tasks = await this.tasksRep.findBy({ "userId": userId })
+    }
+    else if (listId == -2) {
+      // important
+      tasks = await this.tasksRep.findBy({ "userId": userId, 'important': true })
+    }
+    else if (listId == -3) {
+      // planned
+      tasks = await this.tasksRep
+        .createQueryBuilder('entity')
+        
+        .where({
+          'userId': userId
+        })
+        .andWhere('entity.due IS NOT NULL')
+        .getMany();
+    }
+    else {
+      tasks = await this.tasksRep.findBy({ "userId": userId, "listId": listId })
+    }
+
+    return CommonResponse.createRaw(tasks, null);
+  }
+
+  async create(userId: number, req: AddTaskDto): Promise<any> {
+    let task = this.tasksRep.create({ "userId": userId, ...req });
     let ret = await this.tasksRep.insert(task);
     return CommonResponse.createRaw(task, null);
   }
@@ -36,5 +64,5 @@ export class TasksService {
     let ret = await this.tasksRep.update({ id: req.id }, rest);
     return CommonResponse.createRaw(ret.affected, null);
   }
-  
+
 }

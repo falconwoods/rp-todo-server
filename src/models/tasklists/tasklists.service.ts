@@ -27,7 +27,7 @@ export class TasklistsService {
   }
 
   async del(id: number): Promise<any> {
-    // TODO: use transaction
+    // TODO: del tasks too
     let ret = await this.tasklistRep.delete(id);
     return CommonResponse.createRaw<number>(ret.affected, null);
   }

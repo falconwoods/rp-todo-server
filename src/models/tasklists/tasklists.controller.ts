@@ -21,7 +21,7 @@ export class ListsController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('/del')
+  @Post('/delete')
   async del(@Body() req: any) {
     return await this.service.del(req.id);
   }

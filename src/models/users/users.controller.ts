@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Res, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Res, Post, Request, UseGuards, BadRequestException } from '@nestjs/common';
 import { Response } from 'express';
 import { UsersService } from './users.service';
 import { AddUser } from './dto/add-user';
@@ -18,7 +18,10 @@ export class UsersController {
 
     @SkipAuth()
     @Post('/signup')
-    async signup(@Body() req: AddUser) {
+    async signup(@Body() req: any) {
+        let user = await this.usersService.findByName(req.username);
+        if(user != null)
+            return CommonResponse.createRaw(null, 'username is already existed');
         return await this.usersService.createUser(req);
     }
 

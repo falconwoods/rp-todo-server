@@ -19,4 +19,7 @@ export class Task {
 
     @Column({ nullable: true })
     due: string;
+
+    @Column({ nullable: true, default: false })
+    important: boolean;
 }

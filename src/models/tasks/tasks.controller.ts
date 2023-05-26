@@ -14,6 +14,13 @@ export class TasksController {
   async all(@Req() req:any): Promise<any>{
     return await this.service.all(req.user.userId);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/bylist')
+  async byList(@Req() req:any): Promise<any>{
+    let listId = req.query.listId;
+    return await this.service.findByListId(req.user.userId, listId);
+  }
   
   @UseGuards(JwtAuthGuard)
   @Post('/create')

@@ -2,7 +2,7 @@ import { DBQueryResult } from "../database/db-query-result";
 
 export class CommonResponse<T>{
     data: T;
-    error: string;
+    error: any;
 
     static create<T>(arg: DBQueryResult<T>){
         let res = new CommonResponse<T>();
@@ -11,7 +11,7 @@ export class CommonResponse<T>{
         return res;
     }
 
-    static createRaw<T>(data:T, error:string){
+    static createRaw<T>(data:T, error:any){
         let res = new CommonResponse<T>();
         res.data = data;
         res.error = error;
