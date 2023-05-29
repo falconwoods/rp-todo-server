@@ -22,4 +22,7 @@ export class Task {
 
     @Column({ nullable: true, default: false })
     important: boolean;
+
+    @Column({ nullable: true, default: false })
+    completed: boolean;
 }
