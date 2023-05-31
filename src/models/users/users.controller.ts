@@ -41,8 +41,13 @@ export class UsersController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get('/info')
-    getProfile(@Request() req) {
-        return 'user';
+    @Get('/logout')
+    getProfile(@Request() req, @Res() res: Response) {
+        res.cookie('jwtToken', '', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // Set 'secure' to true in production
+            sameSite: 'strict',
+        });
+        return res.send(CommonResponse.createRaw("success", null));
     }
 }
