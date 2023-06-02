@@ -6,23 +6,23 @@ import { DataSource } from 'typeorm';
 
 const MySQLConfig: TypeOrmModuleOptions = {
     type: 'mysql',
-    host: 'localhost',
+    host: '192.168.1.102',
     port: 3306,
-    username: 'root',
-    password: 'root',
+    username: 'todo',
+    password: 'todo2023',
     database: 'todo',
     entities: [User, Tasklist, Task],
     // entities: ['src/**/*.entity{.ts,.js}'],
     synchronize: true,
 };
 
-const MySQLDataSource = new DataSource({
-    type: "mysql",
-    host: "localhost",
-    port: 3306,
-    username: "root",
-    password: "root",
-    database: "todo",
-});
+// const MySQLDataSource = new DataSource({
+//     type: "mysql",
+//     host: "localhost",
+//     port: 3306,
+//     username: "root",
+//     password: "root",
+//     database: "todo",
+// });
 
-export {MySQLConfig, MySQLDataSource};
+export {MySQLConfig};
