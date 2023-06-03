@@ -8,4 +8,10 @@ import { UsersService } from './models/users/users.service';
 @Controller()
 export class AppController {
 
+    @SkipAuth()
+    @Get('/test')
+    async test(){
+        return 'hello world';
+    }
+
 }

@@ -33,7 +33,7 @@ export class UsersController {
 
         res.cookie('jwtToken', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production', // Set 'secure' to true in production
+            secure: true, //process.env.NODE_ENV === 'production', // Set 'secure' to true in production
             sameSite: 'none',
         });
 
@@ -45,7 +45,7 @@ export class UsersController {
     getProfile(@Request() req, @Res() res: Response) {
         res.cookie('jwtToken', '', {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production', // Set 'secure' to true in production
+            secure: true, //process.env.NODE_ENV === 'production', // Set 'secure' to true in production
             sameSite: 'none',
         });
         return res.send(CommonResponse.createRaw("success", null));
