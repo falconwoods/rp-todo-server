@@ -17,7 +17,7 @@ export class Task {
     @Column({ nullable: true })
     note: string;
 
-    @Column({ nullable: true })
+    @Column({ nullable: true, default: '' })
     due: string;
 
     @Column({ nullable: true, default: false })

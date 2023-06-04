@@ -7,6 +7,7 @@ import { DataSource } from 'typeorm';
 const MySQLConfig: TypeOrmModuleOptions = {
     type: 'mysql',
     host: '192.168.1.102',
+    // host: 'localhost',
     port: 3306,
     username: 'todo',
     password: 'todo2023',
