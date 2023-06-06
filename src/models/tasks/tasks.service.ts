@@ -40,6 +40,15 @@ export class TasksService {
         .andWhere('entity.due IS NOT NULL')
         .getMany();
     }
+    else if (listId == -4) {
+      // completed
+      tasks = await this.tasksRep
+        .createQueryBuilder('entity')
+        .where({
+          completed: true
+        })
+        .getMany();
+    }
     else {
       tasks = await this.tasksRep.findBy({ "userId": userId, "listId": listId })
     }
