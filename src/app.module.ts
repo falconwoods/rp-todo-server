@@ -17,10 +17,16 @@ import { TasksModule } from './models/tasks/tasks.module';
 import { UsersController } from './models/users/users.controller';
 import {MySQLConfig} from './config/database';
 import * as cors from 'cors';
+import { ConfigModule, ConfigService  } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(MySQLConfig),
+    ConfigModule.forRoot({isGlobal:true}),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: MySQLConfig,
+    }),
     AuthModule,
     UsersModule,
     ListsModule,
