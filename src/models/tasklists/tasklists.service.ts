@@ -4,15 +4,19 @@ import { AddTasklistDto } from 'src/models/tasklists/dto/add-tasklist.dto';
 import { UpdateTasklistDto } from 'src/models/tasklists/dto/update-tasklist.dto';
 import { Repository } from 'typeorm';
 import { Tasklist } from './entities/tasklist.entity';
+
 import { DBQueryResult } from 'src/common/database/db-query-result';
 import { CommonResponse } from 'src/common/response/CommonResponse';
+import { Task } from '../tasks/entities/Task.entity';
 
 @Injectable()
 export class TasklistsService {
 
   constructor(
     @InjectRepository(Tasklist)
-    private tasklistRep: Repository<Tasklist>
+    private tasklistRep: Repository<Tasklist>,
+    @InjectRepository(Task)
+    private tasksRep: Repository<Task>
   ) { }
 
   async all(userId: number): Promise<any> {
@@ -27,8 +31,8 @@ export class TasklistsService {
   }
 
   async del(id: number): Promise<any> {
-    // TODO: del tasks too
     let ret = await this.tasklistRep.delete(id);
+    await this.tasksRep.delete({listId:id})
     return CommonResponse.createRaw<number>(ret.affected, null);
   }
 
